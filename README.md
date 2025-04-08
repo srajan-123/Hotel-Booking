@@ -28,7 +28,7 @@ Follow the steps below to run this project locally:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/dejwid/airbnb-clone.git
+   git clone 
    cd airbnb-clone
    ```
 
@@ -74,14 +74,4 @@ Once the application is running, you can:
 - **Browse Listings:** Explore available properties based on your preferences.
 - **Manage Listings:** If you’re a host, create and manage your own property listings.
 - **Book a Stay:** Select a property and follow the booking process to reserve your stay.
-
-## Contributing
-
-Contributions are welcome! If you want to report issues or contribute to the project:
-
-1. Fork this repository.
-2. Create a new branch (`git checkout -b feature/your-feature-name`).
-3. Commit your changes (`git commit -m 'Add some feature'`).
-4. Push to the branch (`git push origin feature/your-feature-name`).
-5. Open a Pull Request.
 
