@@ -18,14 +18,14 @@ const app = express();
 
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = 'fasefraw4r5r3wq45wdfgw34twdfg';
-const bucket = 'dawid-booking-app';
+const bucket = 'hotel-booking-app-123';
 
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname+'/uploads'));
 app.use(cors({
   credentials: true,
-  origin: 'http://127.0.0.1:5173',
+  origin: 'http://localhost:5173',  // frontend url which is given permission to access the backend
 }));
 
 async function uploadToS3(path, originalFilename, mimetype) {
@@ -44,7 +44,6 @@ async function uploadToS3(path, originalFilename, mimetype) {
     Body: fs.readFileSync(path),
     Key: newFilename,
     ContentType: mimetype,
-    ACL: 'public-read',
   }));
   return `https://${bucket}.s3.amazonaws.com/${newFilename}`;
 }
@@ -57,6 +56,7 @@ function getUserDataFromReq(req) {
     });
   });
 }
+
 
 app.get('/api/test', (req,res) => {
   mongoose.connect(process.env.MONGO_URL);
@@ -82,6 +82,7 @@ app.post('/api/register', async (req,res) => {
 
 app.post('/api/login', async (req,res) => {
   mongoose.connect(process.env.MONGO_URL);
+  console.log('login',req.body);
   const {email,password} = req.body;
   const userDoc = await User.findOne({email});
   if (userDoc) {
@@ -225,5 +226,10 @@ app.get('/api/bookings', async (req,res) => {
   const userData = await getUserDataFromReq(req);
   res.json( await Booking.find({user:userData.id}).populate('place') );
 });
+
+// app.get('/test', (req,res) => {
+//   res.json('test ok');
+// }
+// )
 
 app.listen(4000);
